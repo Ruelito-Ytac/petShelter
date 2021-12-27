@@ -1,0 +1,34 @@
+#banner_pet{
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 901px;
+
+    #banner_details{
+        h1{
+            font: 48px/52px "DH-Regular";
+            max-width: 260px;
+
+            span{
+                &:first-child{
+                    color: #FF5C4C;
+                }
+
+                &:last-child{
+                    color: #BDBDBD;
+                }
+            }
+        }
+
+        p{
+            color: #BDBDBD;
+            font: 14px/18px "DH-Regular";
+            max-width: 260px;
+        }
+    }
+
+    img{
+        margin-left: auto;
+    }
+}

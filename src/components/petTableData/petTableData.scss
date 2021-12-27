@@ -1,0 +1,63 @@
+#table_pet_data{
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+    width: 901px;
+
+    *{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+    }
+
+    h2{
+        color: #333333;
+        font: 24px/30px "DH-Regular";
+        margin-bottom: 30px;
+    }
+
+    ul{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        li{
+            align-items: center;
+            background: #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0px 8px 40px rgba(34, 69, 82, 0.05);
+            display: flex;
+            height: 69px;
+            margin-bottom: 5px;
+            padding: 0 20px;
+            width: 100%;
+
+            span{
+                color: #333333;
+                font: 18px/22px "DH-Regular";
+
+                &:first-child{
+                    text-align: left;
+                    width: 380px;
+                }
+            }
+
+
+            .action_btn{
+                margin-left: auto;
+
+                button{
+                    background: none;
+                    border: none;
+                    color: #BDBDBD;
+                    cursor: pointer;
+                    font: 18px/22px "DH-Regular";
+                    height: 100%;
+                    outline: none;
+                    width: 130px;
+                }
+            }
+        }
+    }
+}
