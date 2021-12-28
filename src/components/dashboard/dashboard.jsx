@@ -142,8 +142,6 @@ class Dashboard extends React.Component {
         let updated_pet_data = [];
         let new_pet_data_list = [];
 
-        console.log(pet_skill_3 === "")
-
         for(let pet_index in selected_pet){
             let pet_data_selected = selected_pet[pet_index];
             
