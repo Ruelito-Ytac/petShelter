@@ -1,6 +1,9 @@
 #add_pet_modal{
     .modal-content{
         .modal-header{
+            align-items: center;
+            display: flex;
+
             h2{
                 margin: 0;
                 padding: 0;
