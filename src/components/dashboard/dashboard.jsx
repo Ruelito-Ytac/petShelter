@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
                     newPetData={ this.newPetData }
                     submitAddPet={ this.submitAddPet }
                     formInputChange={ this.formInputChange }
-                    updateSelectedPet={ this.state.selected_pet }
+                    updateSelectedPet={ this.fetchSelectedPet() }
                     isUpdate={ this.state.isPetUpdate }
                     updatePet ={ this.petUpdate } />
                 <ShowPetDetails
@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
     }
 
     showAddPetModal = () =>{
-        this.setState({ isOpenAddPetModal: true, isPetUpdate: false });
+        this.setState({ isPetUpdate: false, isOpenAddPetModal: true });
     }
 
     hideAddPetModal = () => {
@@ -163,6 +163,11 @@ class Dashboard extends React.Component {
         new_pet_data_list.push(...updated_pet_data, ...pet_data_list);
 
         this.setState({ pet_data: new_pet_data_list, isOpenAddPetModal: false });
+    }
+
+    fetchSelectedPet () {
+        let selected_data = this.state.selected_pet;
+        return selected_data.find(pet => { return pet.id });
     }
 }
  
