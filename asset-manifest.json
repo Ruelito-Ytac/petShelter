@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/petShelter/static/css/main.c8084287.css",
+    "main.js": "/petShelter/static/js/main.686ce1ff.js",
+    "static/media/DoHyeon-Regular.ttf": "/petShelter/static/media/DoHyeon-Regular.532c2cc8672e3dd1034c.ttf",
+    "static/media/pet_banner.png": "/petShelter/static/media/pet_banner.44294f97032fd9cd5ed7.png",
+    "index.html": "/petShelter/index.html",
+    "main.c8084287.css.map": "/petShelter/static/css/main.c8084287.css.map",
+    "main.686ce1ff.js.map": "/petShelter/static/js/main.686ce1ff.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c8084287.css",
+    "static/js/main.686ce1ff.js"
+  ]
+}
