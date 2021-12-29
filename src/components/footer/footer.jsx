@@ -1,6 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+/* CSS */
 import "./footer.scss";
 
+/** 
+* @class 
+* @extends Component
+* This component class is being called on the ../footer/footer.js <br>
+* All methods are related to showing footer section.<br>
+* Last Updated Date: December 28, 2021
+*/
 class Footer extends React.Component {
     render() { 
         return (

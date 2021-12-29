@@ -1,7 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Modal } from 'react-bootstrap';
+
+/* CSS */
 import "./addPetModal.scss";
 
+/** 
+* @class 
+* @extends Component
+* This component class is being called on the ../modals/addPetModal/addPetModal.js <br>
+* All methods are related to showing of saving pet details.<br>
+* Last Updated Date: December 28, 2021
+*/
 class AddPetModal extends React.Component {
     render() {
         const { isUpdate, updateSelectedPet, submitAddPet, formInputChange, closeAddingPetModal, updatePet } = this.props;
@@ -50,6 +59,14 @@ class AddPetModal extends React.Component {
         );
     }
 
+    /**
+    * DOCU: This will check if the modal is triggered to show. <br>
+    * Triggered: AddPetModal.component <br>
+    * Last Updated Date: December 29, 2021
+    * @function
+    * @memberOf AddPetModal
+    * @author Ruelito
+    */
     isAddPetModalShow () {
         let is_add_pet_modal_show = (this.props.isAddPetOpenModal) ? true : false;
 

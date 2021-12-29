@@ -1,7 +1,16 @@
-import React, { Component } from 'react';
-import "./banner.scss";
+import React from 'react';
 import BannerIMG from "./images/pet_banner.png";
 
+/* CSS */
+import "./banner.scss";
+
+/** 
+* @class 
+* @extends Component
+* This component class is being called on the ../dashboard/dashboard.js <br>
+* All methods are related to showing banner/hero img section.<br>
+* Last Updated Date: December 28, 2021
+*/
 class PetBanner extends React.Component {
     render() { 
         return (

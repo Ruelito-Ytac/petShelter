@@ -1,6 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+/* CSS */
 import "./petTableData.scss";
 
+/** 
+* @class 
+* @extends Component
+* This component class is being called on the ../petTableData/petTableData.js <br>
+* All methods are related to showing pet table data section.<br>
+* Last Updated Date: December 28, 2021
+*/
 class PetTableData extends React.Component {
     render() { 
         return (
