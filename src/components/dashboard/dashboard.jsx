@@ -121,7 +121,9 @@ class Dashboard extends React.Component {
             pet_name: pet_name,
             pet_type: (pet_type) ? pet_type : "Dog",
             pet_desc: pet_desc,
-            pet_skill: [ pet_skill_1, pet_skill_2, pet_skill_3 ]
+            pet_skill: [ pet_skill_1, pet_skill_2, pet_skill_3 ],
+            likes: 0,
+            is_like: false
         })
 
         for(let pet_index in data_pet){
