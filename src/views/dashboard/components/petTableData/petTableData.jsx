@@ -34,7 +34,7 @@ class PetTableData extends React.Component {
 
                     <div className="action_btn">
                         <button className="btn_details" onClick={ () => this.props.showPetDetails(pet.id) }><i className="material-icons">assignment</i> Details</button>
-                        <button className="btn_edit" onClick={ () => this.props.isEdit(pet.id) }><i className="material-icons">edit</i> Edit</button>
+                        <a href="/add-new-pet" className="btn_edit" onClick={ () => this.props.isEdit(pet.id) }><i className="material-icons">edit</i> Edit</a>
                     </div>
                 </li>
             )}

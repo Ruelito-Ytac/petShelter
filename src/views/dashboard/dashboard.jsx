@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /* Components */
 import NavigationBar from './components/navigationBar/navigationBar';
@@ -7,6 +8,7 @@ import PetTableData from './components/petTableData/petTableData';
 import Footer from './components/footer/footer';
 import AddPetModal from '../modals/addPetModal/addPetModal';
 import ShowPetDetails from '../modals/showPetDetails/showPetDetails';
+import AddPetPage from './components/addPetPage/addPetPage';
 
 /* CSS */
 import "./dashboard.scss";
@@ -251,27 +253,45 @@ class Dashboard extends React.Component {
                 <NavigationBar
                     isOpenModal={ this.state.isOpenAddPetModal }
                     clickAddPet={ this.showAddPetModal } />
-                <PetBanner />
-                <PetTableData
-                    pet_list={ this.state.pet_data }
-                    showPetDetails={ this.selectedPetDetails }
-                    isEdit={ this.updatePetDetails } />
-                <Footer />
-                <AddPetModal
-                    isAddPetOpenModal={ this.state.isOpenAddPetModal }
-                    closeAddingPetModal={ this.hideAddPetModal }
-                    newPetData={ this.newPetData }
-                    submitAddPet={ this.submitAddPet }
-                    formInputChange={ this.formInputChange }
-                    updateSelectedPet={ this.fetchSelectedPet() }
-                    isUpdate={ this.state.isPetUpdate }
-                    updatePet ={ this.petUpdate } />
-                <ShowPetDetails
-                    selectedPet={ this.state.selected_pet }
-                    isOpenDetails={ this.state.isOpenDetails }
-                    closeShowPetDetailsModal={ this.hidePetDetailsModal }
-                    adoptPet={ this.adoptPet }
-                    likePet={ this.likePet } />
+                <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <PetBanner />
+                            <PetTableData
+                                pet_list={ this.state.pet_data }
+                                showPetDetails={ this.selectedPetDetails }
+                                isEdit={ this.updatePetDetails } />
+                            <Footer />
+                            {/* <AddPetModal
+                                isAddPetOpenModal={ this.state.isOpenAddPetModal }
+                                closeAddingPetModal={ this.hideAddPetModal }
+                                newPetData={ this.newPetData }
+                                submitAddPet={ this.submitAddPet }
+                                formInputChange={ this.formInputChange }
+                                updateSelectedPet={ this.fetchSelectedPet() }
+                                isUpdate={ this.state.isPetUpdate }
+                                updatePet ={ this.petUpdate } /> */}
+                            <ShowPetDetails
+                                selectedPet={ this.state.selected_pet }
+                                isOpenDetails={ this.state.isOpenDetails }
+                                closeShowPetDetailsModal={ this.hidePetDetailsModal }
+                                adoptPet={ this.adoptPet }
+                                likePet={ this.likePet } />
+                        </Route>
+
+                        <Route path="/add-new-pet" >
+                            <AddPetPage
+                                newPetData={ this.newPetData }
+                                submitAddPet={ this.submitAddPet }
+                                formInputChange={ this.formInputChange } />
+                            <PetTableData
+                                pet_list={ this.state.pet_data }
+                                showPetDetails={ this.selectedPetDetails }
+                                isEdit={ this.updatePetDetails } />
+                            <Footer />
+                        </Route>
+                    </Switch>
+                </Router>
             </div>
         );
     }

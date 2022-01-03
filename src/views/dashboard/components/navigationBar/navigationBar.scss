@@ -42,7 +42,7 @@ nav{
                 color: #BDBDBD;
                 font: 14px/18px "DH-Regular";
 
-                &:hover{
+                &:hover:not(.add_pet){
                     color: #FF5C4C;
                 }
             }
@@ -56,7 +56,7 @@ nav{
                 font: 14px/18px "DH-Regular";
                 height: 35px;
                 outline: none;
-                padding: 0 15px;
+                padding: 10px 15px;
             }
         }
     }

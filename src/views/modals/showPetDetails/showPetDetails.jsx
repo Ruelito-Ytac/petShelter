@@ -23,7 +23,7 @@ class ShowPetDetails extends React.Component {
      isLike = () => {
         return (this.props.selectedPet[0].is_like === true) ? "like_btn disabled" : "like_btn";
     }
-
+    
     render() { 
         return (
             <Modal id="show_pet_details_modal" show={ this.props.isOpenDetails }>
