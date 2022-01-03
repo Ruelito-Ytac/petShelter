@@ -11,16 +11,14 @@ import "./petTableData.scss";
 * Last Updated Date: December 28, 2021
 */
 class PetTableData extends React.Component {
-    render() { 
-        return (
-            <section id="table_pet_data">
-                <h2>This pets are looking for a good home</h2>
-
-                { this.renderPetData() }
-            </section>
-        );
-    }
-
+    /**
+    * DOCU: This will show the list of pet table data. <br>
+    * Triggered: PetTableData.component <br>
+    * Last Updated Date: January 3, 2022
+    * @function
+    * @memberOf Dashboard
+    * @author Ruelito
+    */
     renderPetData() {
         let pet_data = this.props.pet_list;
 
@@ -41,6 +39,16 @@ class PetTableData extends React.Component {
                 </li>
             )}
         </ul>
+    }
+
+    render() { 
+        return (
+            <section id="table_pet_data">
+                <h2>This pets are looking for a good home</h2>
+
+                { this.renderPetData() }
+            </section>
+        );
     }
 }
  

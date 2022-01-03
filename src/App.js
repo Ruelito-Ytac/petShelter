@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { FormText } from 'react-bootstrap';
-import Dashboard from './components/dashboard/dashboard';
+import Dashboard from './views/dashboard/dashboard';
 import "./index.scss"
 
 class App extends React.Component {

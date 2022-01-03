@@ -12,6 +12,18 @@ import "./showPetDetails.scss";
 * Last Updated Date: December 28, 2021
 */
 class ShowPetDetails extends React.Component {
+    /**
+    * DOCU: This will check if the user like the pet and adjust the element class condition. <br>
+    * Triggered: ShowPetDetails.component <br>
+    * Last Updated Date: December 29, 2021
+    * @function
+    * @memberOf ShowPetDetails
+    * @author Ruelito
+    */
+     isLike = () => {
+        return (this.props.selectedPet[0].is_like === true) ? "like_btn disabled" : "like_btn";
+    }
+
     render() { 
         return (
             <Modal id="show_pet_details_modal" show={ this.props.isOpenDetails }>
@@ -56,18 +68,6 @@ class ShowPetDetails extends React.Component {
                 )}
             </Modal>
         );
-    }
-
-    /**
-    * DOCU: This will check if the user like the pet and adjust the element class condition. <br>
-    * Triggered: ShowPetDetails.component <br>
-    * Last Updated Date: December 29, 2021
-    * @function
-    * @memberOf ShowPetDetails
-    * @author Ruelito
-    */
-    isLike = () => {
-        return (this.props.selectedPet[0].is_like === true) ? "like_btn disabled" : "like_btn";
     }
 }
  

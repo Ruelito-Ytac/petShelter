@@ -1,8 +1,10 @@
 import React from 'react';
-import NavigationBar from '../navigationBar/navigationBar';
-import PetBanner from '../banner/banner';
-import PetTableData from '../petTableData/petTableData';
-import Footer from '../footer/footer';
+
+/* Components */
+import NavigationBar from './components/navigationBar/navigationBar';
+import PetBanner from './components/banner/banner';
+import PetTableData from './components/petTableData/petTableData';
+import Footer from './components/footer/footer';
 import AddPetModal from '../modals/addPetModal/addPetModal';
 import ShowPetDetails from '../modals/showPetDetails/showPetDetails';
 
@@ -33,36 +35,6 @@ class Dashboard extends React.Component {
             isFieldHasErrors: false
         }
     }
-    render() {
-        return (
-            <div id="main">
-                <NavigationBar
-                    isOpenModal={ this.state.isOpenAddPetModal }
-                    clickAddPet={ this.showAddPetModal } />
-                <PetBanner />
-                <PetTableData
-                    pet_list={ this.state.pet_data }
-                    showPetDetails={ this.selectedPetDetails }
-                    isEdit={ this.updatePetDetails } />
-                <Footer />
-                <AddPetModal
-                    isAddPetOpenModal={ this.state.isOpenAddPetModal }
-                    closeAddingPetModal={ this.hideAddPetModal }
-                    newPetData={ this.newPetData }
-                    submitAddPet={ this.submitAddPet }
-                    formInputChange={ this.formInputChange }
-                    updateSelectedPet={ this.fetchSelectedPet() }
-                    isUpdate={ this.state.isPetUpdate }
-                    updatePet ={ this.petUpdate } />
-                <ShowPetDetails
-                    selectedPet={ this.state.selected_pet }
-                    isOpenDetails={ this.state.isOpenDetails }
-                    closeShowPetDetailsModal={ this.hidePetDetailsModal }
-                    adoptPet={ this.adoptPet }
-                    likePet={ this.likePet } />
-            </div>
-        );
-    }
 
     /**
     * DOCU: This will show the modal of adding pet. <br>
@@ -72,7 +44,7 @@ class Dashboard extends React.Component {
     * @memberOf Dashboard
     * @author Ruelito
     */ 
-    showAddPetModal = () =>{
+     showAddPetModal = () =>{
         this.setState({ isPetUpdate: false, isOpenAddPetModal: true });
     }
 
@@ -128,10 +100,10 @@ class Dashboard extends React.Component {
                 likes: 0,
                 is_like: false
             })
-    
-            for(let pet_index in data_pet){
-                new_pet_set_data.push(...pet_data, data_pet[pet_index])
-            }
+
+            data_pet.map(pet => {
+                new_pet_set_data.push(...pet_data, pet);
+            })
     
             this.setState({ pet_data: new_pet_set_data, isOpenAddPetModal: false });
         }
@@ -194,12 +166,10 @@ class Dashboard extends React.Component {
         let pet_data = this.state.pet_data.filter(pet => pet.id !== pet_id);
         let new_pet_list = [];
 
-        for(let pet_index in selected_pet){
-            let pet_item = selected_pet[pet_index];
-
+        selected_pet.map(pet_item => {
             pet_item.likes = pet_item.likes + 1;
             pet_item.is_like = true;
-        }
+        });
 
         new_pet_list.push(...selected_pet, ...pet_data);
 
@@ -219,11 +189,9 @@ class Dashboard extends React.Component {
         let selected_pet = this.state.pet_data.filter(pet => pet.id === pet_id);
         let pet_item =[];
 
-        for(let pet_index in selected_pet){
-            let pet_data = selected_pet[pet_index];
-
+        selected_pet.map(pet_data => {
             pet_item.push(pet_data);
-        }
+        });
 
         this.setState({ selected_pet: pet_item, isOpenAddPetModal: true, isPetUpdate: true });
     }
@@ -240,36 +208,28 @@ class Dashboard extends React.Component {
         event.preventDefault();
         const { pet_data, selected_pet, pet_name, pet_type, pet_desc, pet_skill_1, pet_skill_2, pet_skill_3 } = this.state;
 
-        if(pet_desc !== undefined && pet_name !== undefined){
-            let pet_id
-            let updated_pet_data = [];
-            let new_pet_data_list = [];
-    
-            for(let pet_index in selected_pet){
-                let pet_data_selected = selected_pet[pet_index];
-                
-                pet_id = pet_data_selected.id;
-                
-                updated_pet_data.push({
-                    id: pet_data_selected.id,
-                    pet_name: (pet_name) ? pet_name : pet_data_selected.pet_name,
-                    pet_type: (pet_type) ? pet_type : pet_data_selected.pet_type,
-                    pet_desc: (pet_desc) ? pet_desc : pet_data_selected.pet_desc,
-                    pet_skill: [(pet_skill_1 || pet_skill_1 === "") ? pet_skill_1 : pet_data_selected.pet_skill[0], (pet_skill_2 || pet_skill_2 === "") ? pet_skill_2 : pet_data_selected.pet_skill[1], (pet_skill_3 || pet_skill_3 === "") ? pet_skill_3 : pet_data_selected.pet_skill[2]],
-                    is_like: pet_data_selected.is_like,
-                    likes: pet_data_selected.likes
-                });
-            }
-    
-            
-            let pet_data_list = pet_data.filter(pet => pet.id !== pet_id);
-            new_pet_data_list.push(...updated_pet_data, ...pet_data_list);
-    
-            this.setState({ pet_data: new_pet_data_list, isOpenAddPetModal: false });
-        }
-        else{
-            console.log("It Has an Error");
-        }
+        let pet_id
+        let updated_pet_data = [];
+        let new_pet_data_list = [];
+
+        selected_pet.map(pet_data_selected => {
+            pet_id = pet_data_selected.id;
+
+            updated_pet_data.push({
+                id: pet_data_selected.id,
+                pet_name: (pet_name) ? pet_name : pet_data_selected.pet_name,
+                pet_type: (pet_type) ? pet_type : pet_data_selected.pet_type,
+                pet_desc: (pet_desc) ? pet_desc : pet_data_selected.pet_desc,
+                pet_skill: [(pet_skill_1 || pet_skill_1 === "") ? pet_skill_1 : pet_data_selected.pet_skill[0], (pet_skill_2 || pet_skill_2 === "") ? pet_skill_2 : pet_data_selected.pet_skill[1], (pet_skill_3 || pet_skill_3 === "") ? pet_skill_3 : pet_data_selected.pet_skill[2]],
+                is_like: pet_data_selected.is_like,
+                likes: pet_data_selected.likes
+            });
+        });
+        
+        let pet_data_list = pet_data.filter(pet => pet.id !== pet_id);
+        new_pet_data_list.push(...updated_pet_data, ...pet_data_list);
+
+        this.setState({ pet_data: new_pet_data_list, isOpenAddPetModal: false });
     }
 
     /**
@@ -283,6 +243,37 @@ class Dashboard extends React.Component {
     fetchSelectedPet () {
         let selected_data = this.state.selected_pet;
         return selected_data.find(pet => { return pet.id });
+    }
+
+    render() {
+        return (
+            <div id="main">
+                <NavigationBar
+                    isOpenModal={ this.state.isOpenAddPetModal }
+                    clickAddPet={ this.showAddPetModal } />
+                <PetBanner />
+                <PetTableData
+                    pet_list={ this.state.pet_data }
+                    showPetDetails={ this.selectedPetDetails }
+                    isEdit={ this.updatePetDetails } />
+                <Footer />
+                <AddPetModal
+                    isAddPetOpenModal={ this.state.isOpenAddPetModal }
+                    closeAddingPetModal={ this.hideAddPetModal }
+                    newPetData={ this.newPetData }
+                    submitAddPet={ this.submitAddPet }
+                    formInputChange={ this.formInputChange }
+                    updateSelectedPet={ this.fetchSelectedPet() }
+                    isUpdate={ this.state.isPetUpdate }
+                    updatePet ={ this.petUpdate } />
+                <ShowPetDetails
+                    selectedPet={ this.state.selected_pet }
+                    isOpenDetails={ this.state.isOpenDetails }
+                    closeShowPetDetailsModal={ this.hidePetDetailsModal }
+                    adoptPet={ this.adoptPet }
+                    likePet={ this.likePet } />
+            </div>
+        );
     }
 }
  

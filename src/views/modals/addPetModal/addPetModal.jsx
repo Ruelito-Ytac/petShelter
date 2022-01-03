@@ -16,7 +16,7 @@ class AddPetModal extends React.Component {
         const { isUpdate, updateSelectedPet, submitAddPet, formInputChange, closeAddingPetModal, updatePet } = this.props;
 
         return (
-            <Modal id="add_pet_modal" show={ this.isAddPetModalShow() }>
+            <Modal id="add_pet_modal" show={ this.props.isAddPetOpenModal }>
                 <Modal.Header>
                     <h2>Add Pet</h2>
                     <button className="close_btn" onClick={ closeAddingPetModal }><i className="material-icons">close</i></button>
@@ -57,20 +57,6 @@ class AddPetModal extends React.Component {
                 </Modal.Body>
             </Modal>
         );
-    }
-
-    /**
-    * DOCU: This will check if the modal is triggered to show. <br>
-    * Triggered: AddPetModal.component <br>
-    * Last Updated Date: December 29, 2021
-    * @function
-    * @memberOf AddPetModal
-    * @author Ruelito
-    */
-    isAddPetModalShow () {
-        let is_add_pet_modal_show = (this.props.isAddPetOpenModal) ? true : false;
-
-        return is_add_pet_modal_show;
     }
 }
 
