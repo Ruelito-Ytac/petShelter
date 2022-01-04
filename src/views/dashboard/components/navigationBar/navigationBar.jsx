@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /* CSS */
 import "./navigationBar.scss";
@@ -16,10 +17,10 @@ class NavigationBar extends React.Component {
             <nav>
                 <h2 className="nav_brand">PETSHELTER</h2>
                 <ul>
-                    <li className="active"><a href="/">Home</a></li>
-                    <li><a href="https://www.hackerhero.com/">Services</a></li>
-                    <li><a href="https://www.codingdojo.com/">Events</a></li>
-                    <li><a href="/add-new-pet" className="add_pet">Add pet to Shelter</a></li>
+                    <li className="active"><Link to="/">Home</Link></li>
+                    <li><Link to="https://www.hackerhero.com/">Services</Link></li>
+                    <li><Link to="https://www.codingdojo.com/">Events</Link></li>
+                    <li><Link to="/add-new-pet" className="add_pet">Add pet to Shelter</Link></li>
                 </ul>
             </nav>
         );

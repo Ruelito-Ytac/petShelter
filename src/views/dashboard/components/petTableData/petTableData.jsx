@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /* CSS */
 import "./petTableData.scss";
@@ -33,8 +34,8 @@ class PetTableData extends React.Component {
                     <span className="pet_type">{ pet.pet_type }</span>
 
                     <div className="action_btn">
-                        <button className="btn_details" onClick={ () => this.props.showPetDetails(pet.id) }><i className="material-icons">assignment</i> Details</button>
-                        <a href="/add-new-pet" className="btn_edit" onClick={ () => this.props.isEdit(pet.id) }><i className="material-icons">edit</i> Edit</a>
+                        <Link to={ `/pet-details/${ pet.id }` } className="btn_details" onClick={ () => this.props.showPetDetails(pet.id) }><i className="material-icons">assignment</i> Details</Link>
+                        <Link to={ `/update-pet/${ pet.id }` } className="btn_edit" onClick={ () => this.props.isEdit(pet.id) }><i className="material-icons">edit</i> Edit</Link>
                     </div>
                 </li>
             )}

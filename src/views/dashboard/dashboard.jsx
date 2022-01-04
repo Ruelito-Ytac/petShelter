@@ -1,14 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 /* Components */
 import NavigationBar from './components/navigationBar/navigationBar';
 import PetBanner from './components/banner/banner';
 import PetTableData from './components/petTableData/petTableData';
 import Footer from './components/footer/footer';
-import AddPetModal from '../modals/addPetModal/addPetModal';
 import ShowPetDetails from '../modals/showPetDetails/showPetDetails';
 import AddPetPage from './components/addPetPage/addPetPage';
+import UpdatePet from './components/updatePetPage/updatePetPage';
+import SelectedPetDetails from './components/showPetDetails/showPetDetails';
 
 /* CSS */
 import "./dashboard.scss";
@@ -151,7 +152,7 @@ class Dashboard extends React.Component {
     adoptPet = (pet_id) => {
         let selected_pet = this.state.pet_data.filter(pet => pet.id !== pet_id);
 
-        this.setState({ pet_data: selected_pet, isOpenDetails: false });
+        this.setState({ pet_data: selected_pet });
     }
 
     /**
@@ -231,7 +232,7 @@ class Dashboard extends React.Component {
         let pet_data_list = pet_data.filter(pet => pet.id !== pet_id);
         new_pet_data_list.push(...updated_pet_data, ...pet_data_list);
 
-        this.setState({ pet_data: new_pet_data_list, isOpenAddPetModal: false });
+        this.setState({ pet_data: new_pet_data_list });
     }
 
     /**
@@ -250,10 +251,10 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div id="main">
-                <NavigationBar
-                    isOpenModal={ this.state.isOpenAddPetModal }
-                    clickAddPet={ this.showAddPetModal } />
-                <Router>
+                <BrowserRouter>
+                    <NavigationBar
+                        isOpenModal={ this.state.isOpenAddPetModal }
+                        clickAddPet={ this.showAddPetModal } />
                     <Switch>
                         <Route exact path="/">
                             <PetBanner />
@@ -262,21 +263,6 @@ class Dashboard extends React.Component {
                                 showPetDetails={ this.selectedPetDetails }
                                 isEdit={ this.updatePetDetails } />
                             <Footer />
-                            {/* <AddPetModal
-                                isAddPetOpenModal={ this.state.isOpenAddPetModal }
-                                closeAddingPetModal={ this.hideAddPetModal }
-                                newPetData={ this.newPetData }
-                                submitAddPet={ this.submitAddPet }
-                                formInputChange={ this.formInputChange }
-                                updateSelectedPet={ this.fetchSelectedPet() }
-                                isUpdate={ this.state.isPetUpdate }
-                                updatePet ={ this.petUpdate } /> */}
-                            <ShowPetDetails
-                                selectedPet={ this.state.selected_pet }
-                                isOpenDetails={ this.state.isOpenDetails }
-                                closeShowPetDetailsModal={ this.hidePetDetailsModal }
-                                adoptPet={ this.adoptPet }
-                                likePet={ this.likePet } />
                         </Route>
 
                         <Route path="/add-new-pet" >
@@ -290,8 +276,26 @@ class Dashboard extends React.Component {
                                 isEdit={ this.updatePetDetails } />
                             <Footer />
                         </Route>
+
+                        <Route path="/update-pet/:pet_id">
+                            <UpdatePet
+                                formInputChange={ this.formInputChange }
+                                updateSelectedPet={ this.fetchSelectedPet() }
+                                updatePet ={ this.petUpdate } />
+                            <Footer />
+                        </Route>
+
+                        <Route path="/pet-details/:pet_id">
+                            <SelectedPetDetails
+                                selectedPet={ this.state.selected_pet }
+                                isOpenDetails={ this.state.isOpenDetails }
+                                adoptPet={ this.adoptPet }
+                                likePet={ this.likePet } />
+                        </Route>
+
+                        <Redirect from="*" to="/" />
                     </Switch>
-                </Router>
+                </BrowserRouter>
             </div>
         );
     }
