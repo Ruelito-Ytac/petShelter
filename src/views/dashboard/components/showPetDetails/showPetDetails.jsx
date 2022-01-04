@@ -14,11 +14,11 @@ class SelectedPetDetails extends React.Component {
     * @author Ruelito
     */
      isLike = () => {
-        return (this.props.selectedPet[0].is_like === true) ? "like_btn disabled" : "like_btn";
+        return (this.props.selectedPet.is_like) ? "like_btn disabled" : "like_btn";
     }
 
     render() { 
-        let pet = this.props.selectedPet[0];
+        let pet = this.props.selectedPet;
 
         return (
             <section id="pet_details">

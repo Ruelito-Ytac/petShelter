@@ -2,14 +2,13 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 /* Components */
+import AddPetPage from './components/addPetPage/addPetPage';
+import Footer from './components/footer/footer';
 import NavigationBar from './components/navigationBar/navigationBar';
 import PetBanner from './components/banner/banner';
 import PetTableData from './components/petTableData/petTableData';
-import Footer from './components/footer/footer';
-import ShowPetDetails from '../modals/showPetDetails/showPetDetails';
-import AddPetPage from './components/addPetPage/addPetPage';
-import UpdatePet from './components/updatePetPage/updatePetPage';
 import SelectedPetDetails from './components/showPetDetails/showPetDetails';
+import UpdatePet from './components/updatePetPage/updatePetPage';
 
 /* CSS */
 import "./dashboard.scss";
@@ -34,8 +33,8 @@ class Dashboard extends React.Component {
                 { id: 3, pet_name: "Kwatong", pet_type: "Tiger", pet_desc: "He loves to eat potato", is_like: true, likes: 8, pet_skill: [ "Eating", "", "" ] }
             ],
             selected_pet: [],
-            isPetUpdate: true,
-            isFieldHasErrors: false
+            is_pet_update: true,
+            is_field_has_errors: false
         }
     }
 
@@ -48,7 +47,7 @@ class Dashboard extends React.Component {
     * @author Ruelito
     */ 
      showAddPetModal = () =>{
-        this.setState({ isPetUpdate: false, isOpenAddPetModal: true });
+        this.setState({ is_pet_update: false, isOpenAddPetModal: true });
     }
 
     /**
@@ -88,13 +87,12 @@ class Dashboard extends React.Component {
     */
     submitAddPet = (event) => {
         event.preventDefault();
-        const { pet_data, pet_name, pet_type, pet_desc, pet_skill_1, pet_skill_2, pet_skill_3 } = this.state;
+        const { pet_name, pet_type, pet_desc, pet_skill_1, pet_skill_2, pet_skill_3 } = this.state;
         
         if(pet_desc !== undefined && pet_name !== undefined){
-            let data_pet = [];
-            let new_pet_set_data = [];
+            let pet_data = [...this.state.pet_data];
 
-            data_pet.push({
+            pet_data.push({
                 id: pet_data.length + 1,
                 pet_name: pet_name,
                 pet_type: (pet_type) ? pet_type : "Dog",
@@ -102,13 +100,9 @@ class Dashboard extends React.Component {
                 pet_skill: [ pet_skill_1, pet_skill_2, pet_skill_3 ],
                 likes: 0,
                 is_like: false
-            })
+            });
 
-            data_pet.map(pet => {
-                new_pet_set_data.push(...pet_data, pet);
-            })
-    
-            this.setState({ pet_data: new_pet_set_data, isOpenAddPetModal: false });
+            this.setState({ pet_data });
         }
         else{
             console.log("It Has an Error");
@@ -125,7 +119,7 @@ class Dashboard extends React.Component {
     * @author Ruelito
     */
     selectedPetDetails = (pet_data) =>  {
-        this.setState({ selected_pet: this.state.pet_data.filter(pet => pet.id === pet_data), isOpenDetails: true });
+        this.setState({ selected_pet: this.state.pet_data.filter(pet => pet.id === pet_data) });
     }
 
     /**
@@ -150,9 +144,9 @@ class Dashboard extends React.Component {
     * @author Ruelito
     */
     adoptPet = (pet_id) => {
-        let selected_pet = this.state.pet_data.filter(pet => pet.id !== pet_id);
+        let pet_data = this.state.pet_data.filter(pet => pet.id !== pet_id);
 
-        this.setState({ pet_data: selected_pet });
+        this.setState({ pet_data });
     }
 
     /**
@@ -196,7 +190,7 @@ class Dashboard extends React.Component {
             pet_item.push(pet_data);
         });
 
-        this.setState({ selected_pet: pet_item, isOpenAddPetModal: true, isPetUpdate: true });
+        this.setState({ selected_pet: pet_item, isOpenAddPetModal: true, is_pet_update: true });
     }
 
     /**
@@ -267,7 +261,6 @@ class Dashboard extends React.Component {
 
                         <Route path="/add-new-pet" >
                             <AddPetPage
-                                newPetData={ this.newPetData }
                                 submitAddPet={ this.submitAddPet }
                                 formInputChange={ this.formInputChange } />
                             <PetTableData
@@ -287,8 +280,7 @@ class Dashboard extends React.Component {
 
                         <Route path="/pet-details/:pet_id">
                             <SelectedPetDetails
-                                selectedPet={ this.state.selected_pet }
-                                isOpenDetails={ this.state.isOpenDetails }
+                                selectedPet={ this.state.selected_pet[0] }
                                 adoptPet={ this.adoptPet }
                                 likePet={ this.likePet } />
                         </Route>
