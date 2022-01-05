@@ -204,10 +204,9 @@ class Dashboard extends React.Component {
     petUpdate = (event) => {
         event.preventDefault();
         const { pet_data, selected_pet, pet_name, pet_type, pet_desc, pet_skill_1, pet_skill_2, pet_skill_3 } = this.state;
-        let pet_selected;
+        let pet_selected = selected_pet.find(pet => pet);
         let pet_datas = [...pet_data];
 
-        selected_pet.map(pet => pet_selected = pet);
         const new_pet_list = pet_datas.map(new_pet_data => {
             if(new_pet_data.id === pet_selected.id){
                 return {
