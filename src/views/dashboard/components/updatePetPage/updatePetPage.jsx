@@ -7,8 +7,17 @@ import "./updatePetPage.scss";
 class UpdatePet extends React.Component {
     constructor(props) {
         super(props);
+        const { id, pet_name, pet_desc, pet_type, pet_skill } = this.props.updateSelectedPet;
 
-        this.state = {}
+        this.state = {
+            id: id,
+            pet_name: pet_name,
+            pet_desc: pet_desc,
+            pet_type: pet_type,
+            pet_skill_1: pet_skill[0],
+            pet_skill_2: pet_skill[1],
+            pet_skill_3: pet_skill[2],
+        }
     }
 
     /**

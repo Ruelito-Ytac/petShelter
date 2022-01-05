@@ -158,13 +158,13 @@ class Dashboard extends React.Component {
     * @param {object} pet_id - Requires to determine the selected pet data.
     * @author Ruelito
     */
-    likePet = (pet_id) => {
+    toggleLikePet = (pet_id) => {
         let pet_data = [...this.state.pet_data];
 
         pet_data.map(pet_list => {
             if(pet_list.id === pet_id){
-                pet_list.likes += 1;
-                pet_list.is_like = true;
+                pet_list.likes = (pet_list.is_like) ? pet_list.likes += 1 : pet_list.likes -= 1;
+                pet_list.is_like = !pet_list.is_like
             }
         })
         
@@ -199,19 +199,16 @@ class Dashboard extends React.Component {
     * @memberOf Dashboard
     * @author Ruelito
     */
-    petUpdate = (event, pet_item, pet_id) => {
+    petUpdate = (event, pet_item) => {
         event.preventDefault();
         let pet_data = [...this.state.pet_data];
         
         pet_data.map(pet_list => {
-            if(pet_list.id === pet_id){
-                pet_list.pet_name = (!pet_item.pet_name) ? pet_list.pet_name : pet_item.pet_name;
-                pet_list.pet_desc = (!pet_item.pet_desc) ? pet_list.pet_desc : pet_item.pet_desc;
-                pet_list.pet_type = (!pet_item.pet_type) ? pet_list.pet_type : pet_item.pet_type;
-                pet_list.pet_skill = [
-                    (!pet_item.pet_skill_1) ? pet_list.pet_skill[0] : pet_item.pet_skill_1,
-                    (!pet_item.pet_skill_2) ? pet_list.pet_skill[1] : pet_item.pet_skill_2,
-                    (!pet_item.pet_skill_3) ? pet_list.pet_skill[2] : pet_item.pet_skill_3 ];
+            if(pet_list.id === pet_item.id){
+                pet_list.pet_name = pet_item.pet_name;
+                pet_list.pet_desc = pet_item.pet_desc;
+                pet_list.pet_type = pet_item.pet_type;
+                pet_list.pet_skill = [pet_item.pet_skill_1, pet_item.pet_skill_2, pet_item.pet_skill_3];
             }
         })
 
@@ -271,7 +268,7 @@ class Dashboard extends React.Component {
                             <SelectedPetDetails
                                 selectedPet={ this.state.selected_pet[0] }
                                 adoptPet={ this.adoptPet }
-                                likePet={ this.likePet } />
+                                toggleLikePet={ this.toggleLikePet } />
                         </Route>
 
                         <Redirect from="*" to="/" />

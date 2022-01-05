@@ -13,9 +13,9 @@ class SelectedPetDetails extends React.Component {
     * @memberOf ShowPetDetails
     * @author Ruelito
     */
-     isLike = () => {
-        return (this.props.selectedPet.is_like) ? "like_btn disabled" : "like_btn";
-    }
+    //  isLike = () => {
+    //     return (this.props.selectedPet.is_like) ? "like_btn disabled" : "like_btn";
+    // }
 
     render() { 
         let pet = this.props.selectedPet;
@@ -47,7 +47,7 @@ class SelectedPetDetails extends React.Component {
 
                 <div className="action_btn">
                     <span className="likes_count">{ pet.likes } Likes</span>
-                    <button className={ this.isLike() } onClick={ () => this.props.likePet(pet.id) }><i className="material-icons">{ (pet.is_like === true) ? "check" : "favorite" }</i> Like { pet.pet_name }</button>
+                    <button className="like_btn" onClick={ () => this.props.toggleLikePet(pet.id) }><i className="material-icons">{ (pet.is_like === true) ? "check" : "favorite" }</i> { (pet.is_like === true) ? "Unlike" : "Like" } { pet.pet_name }</button>
                     <Link to="/" className="adopt_btn" onClick={ () => this.props.adoptPet(pet.id) }><i className="material-icons">home</i> Adopt { pet.pet_name }</Link>
                 </div>
             </section>
