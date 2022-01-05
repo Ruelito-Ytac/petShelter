@@ -46,7 +46,7 @@ class Dashboard extends React.Component {
     * @memberOf Dashboard
     * @author Ruelito
     */ 
-     showAddPetModal = () =>{
+    showAddPetModal = () =>{
         this.setState({ is_pet_update: false, isOpenAddPetModal: true });
     }
 
@@ -152,25 +152,23 @@ class Dashboard extends React.Component {
     /**
     * DOCU: This will adopt the pet and remove list from pet table data. <br>
     * Triggered: ShowPetDetails.component <br>
-    * Last Updated Date: December 29, 2021
+    * Last Updated Date: January 5, 2022
     * @function
     * @memberOf Dashboard
     * @param {object} pet_id - Requires to determine the selected pet data.
     * @author Ruelito
     */
     likePet = (pet_id) => {
-        let selected_pet = this.state.pet_data.filter(pet => pet.id === pet_id);
-        let pet_data = this.state.pet_data.filter(pet => pet.id !== pet_id);
-        let new_pet_list = [];
+        let pet_data = [...this.state.pet_data];
 
-        selected_pet.map(pet_item => {
-            pet_item.likes = pet_item.likes + 1;
-            pet_item.is_like = true;
-        });
-
-        new_pet_list.push(...selected_pet, ...pet_data);
-
-        this.setState({ pet_data: new_pet_list });
+        pet_data.map(pet_list => {
+            if(pet_list.id === pet_id){
+                pet_list.likes += 1;
+                pet_list.is_like = true;
+            }
+        })
+        
+        this.setState({ pet_data });
     }
 
     /**
@@ -196,35 +194,28 @@ class Dashboard extends React.Component {
     /**
     * DOCU: This will update the selected pet item. <br>
     * Triggered: AddPetModal.component <br>
-    * Last Updated Date: January 5, 2021
+    * Last Updated Date: January 5, 2022
     * @function
     * @memberOf Dashboard
     * @author Ruelito
     */
-    petUpdate = (event) => {
+    petUpdate = (event, pet_item, pet_id) => {
         event.preventDefault();
-        const { pet_data, selected_pet, pet_name, pet_type, pet_desc, pet_skill_1, pet_skill_2, pet_skill_3 } = this.state;
-        let pet_selected = selected_pet.find(pet => pet);
-        let pet_datas = [...pet_data];
-
-        const new_pet_list = pet_datas.map(new_pet_data => {
-            if(new_pet_data.id === pet_selected.id){
-                return {
-                    ...new_pet_data,
-                    id: pet_selected.id,
-                    pet_name: (pet_name) ? pet_name : pet_selected.pet_name,
-                    pet_type: (pet_type) ? pet_type : pet_selected.pet_type,
-                    pet_desc: (pet_desc) ? pet_desc : pet_selected.pet_desc,
-                    pet_skill: [(pet_skill_1 || pet_skill_1 === "") ? pet_skill_1 : pet_selected.pet_skill[0], (pet_skill_2 || pet_skill_2 === "") ? pet_skill_2 : pet_selected.pet_skill[1], (pet_skill_3 || pet_skill_3 === "") ? pet_skill_3 : pet_selected.pet_skill[2]],
-                    is_like: pet_selected.is_like,
-                    likes: pet_selected.likes
-                }
+        let pet_data = [...this.state.pet_data];
+        
+        pet_data.map(pet_list => {
+            if(pet_list.id === pet_id){
+                pet_list.pet_name = (!pet_item.pet_name) ? pet_list.pet_name : pet_item.pet_name;
+                pet_list.pet_desc = (!pet_item.pet_desc) ? pet_list.pet_desc : pet_item.pet_desc;
+                pet_list.pet_type = (!pet_item.pet_type) ? pet_list.pet_type : pet_item.pet_type;
+                pet_list.pet_skill = [
+                    (!pet_item.pet_skill_1) ? pet_list.pet_skill[0] : pet_item.pet_skill_1,
+                    (!pet_item.pet_skill_2) ? pet_list.pet_skill[1] : pet_item.pet_skill_2,
+                    (!pet_item.pet_skill_3) ? pet_list.pet_skill[2] : pet_item.pet_skill_3 ];
             }
-
-            return new_pet_data;
         })
 
-        this.setState({ pet_data: new_pet_list });
+        this.setState({ pet_data });
     }
 
     /**
